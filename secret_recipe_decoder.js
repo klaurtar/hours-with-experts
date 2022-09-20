@@ -1,3 +1,7 @@
+const fs = require('fs');
+const path = require('path');
+const filePath = path.join(__dirname, 'secret_recipe.txt');
+
 //  Caesar encoding, for use with decoding below
 const ENCODING = {
   y: 'a',
