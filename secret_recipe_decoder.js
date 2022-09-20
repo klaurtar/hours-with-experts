@@ -2,20 +2,6 @@ const fs = require('fs');
 const path = require('path');
 const filePath = path.join(__dirname, 'secret_recipe.txt');
 
-fs.readFile(filePath, 'utf-8', function (err, data) {
-  if (!err) {
-    const splitData = data.split(/\r?\n/);
-    for (const line of splitData) {
-      fs.appendFileSync(
-        './decoded_recipe.txt',
-        `${decodeIngredient(line).printIngredient()}\n`
-      );
-    }
-  } else {
-    console.log(err);
-  }
-});
-
 //  Caesar encoding, for use with decoding below
 const ENCODING = {
   y: 'a',
@@ -91,6 +77,19 @@ const decodeIngredient = (line) => {
 const init = () => {
   // A program that decodes a secret recipe
   // TODO: Implement me
+  fs.readFile(filePath, 'utf-8', function (err, data) {
+    if (!err) {
+      const splitData = data.split(/\r?\n/);
+      for (const line of splitData) {
+        fs.appendFileSync(
+          './decoded_recipe.txt',
+          `${decodeIngredient(line).printIngredient()}\n`
+        );
+      }
+    } else {
+      console.log(err);
+    }
+  });
 };
 
 init();
