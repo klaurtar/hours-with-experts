@@ -1,3 +1,21 @@
+const fs = require('fs');
+const path = require('path');
+const filePath = path.join(__dirname, 'secret_recipe.txt');
+
+fs.readFile(filePath, 'utf-8', function (err, data) {
+  if (!err) {
+    const splitData = data.split(/\r?\n/);
+    for (const line of splitData) {
+      fs.appendFileSync(
+        './decoded_recipe.txt',
+        `${decodeIngredient(line).printIngredient()}\n`
+      );
+    }
+  } else {
+    console.log(err);
+  }
+});
+
 //  Caesar encoding, for use with decoding below
 const ENCODING = {
   y: 'a',
@@ -45,18 +63,29 @@ class Ingredient {
     this.amount = amount;
     this.description = description;
   }
+
+  printIngredient() {
+    return `${this.amount} ${this.description}`;
+  }
 }
 
 const decodeString = (str) => {
   // Given a string named str, use the Caesar encoding above to return the decoded string.
   // TODO: implement me
-  return '1 cup';
+  return str
+    .split('')
+    .map((char) => (ENCODING[char] ? ENCODING[char] : char))
+    .join('');
 };
 
 const decodeIngredient = (line) => {
   // Given an ingredient, decode the amount and description, and return a new Ingredient
   // TODO: Implement me
-  return new Ingredient('1 cup', 'butter');
+  const splitByHash = line.split('#');
+  return new Ingredient(
+    decodeString(splitByHash[0]),
+    decodeString(splitByHash[1])
+  );
 };
 
 const init = () => {
