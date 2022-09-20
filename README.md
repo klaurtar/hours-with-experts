@@ -1,4 +1,4 @@
-# Hours with Experts Coding Challenge: Python
+# Hours with Experts Coding Challenge: Node.js
 
 Many years ago, the perfect cookie recipe was created and then lost... until now. An encrypted version was discovered
 and it is up to you to recover the recipe so that the perfect cookie can be created once again.
